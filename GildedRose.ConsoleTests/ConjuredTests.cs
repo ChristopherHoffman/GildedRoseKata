@@ -27,9 +27,36 @@ namespace GildedRose.ConsoleTests
 
             program.UpdateQuality();
 
-            Item alteredItem = program.Items[0];
+            int newQuality = program.Items[0].Quality;
 
-            Assert.AreEqual(originalQuality - (2* Program.NORMAL_ITEM_QUALITY_LOSS), alteredItem.Quality);
+            Assert.AreEqual(originalQuality - (2* Program.NORMAL_ITEM_QUALITY_LOSS), newQuality);
+        }
+
+        [TestMethod()]
+        public void ConjuredItems_DegradeTwiceAsFastAsNormalItems_SellInDateNegative()
+        {
+            int originalQuality = 20;
+            int originalSellIn = 0;
+            program.Items = new List<Item> { new Item { Name = "Conjured Mana Cake", SellIn = originalSellIn, Quality = originalQuality } };
+
+            program.UpdateQuality();
+
+            int newQuality = program.Items[0].Quality;
+
+            Assert.AreEqual(originalQuality - (4 * Program.NORMAL_ITEM_QUALITY_LOSS), newQuality);
+        }
+
+        [TestMethod()]
+        public void ConjuredItems_QualityIsNeverNegative()
+        {
+            int originalQuality = 0;
+            program.Items = new List<Item> { new Item { Name = "Conjured Mana Cake", SellIn = 10, Quality = originalQuality } };
+
+            program.UpdateQuality();
+
+            int newQuality = program.Items[0].Quality;
+
+            Assert.AreEqual(originalQuality, newQuality);
         }
     }
 }

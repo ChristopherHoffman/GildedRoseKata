@@ -76,10 +76,10 @@ namespace GildedRose.Console
                 }
                 else //Normal Items
                 {
-                        item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
+                    item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
                 }
 
-                if (item.Quality < 0) item.Quality = 0;
+                if (item.Quality < 0) item.Quality = 0; //Qualities can never be lower than 0, so clamp it to that range.
             }
         }
 
@@ -129,8 +129,14 @@ namespace GildedRose.Console
                     break;
                 case "Sulfuras, Hand of Ragnaros":
                     break;
+                case "Conjured Mana Cake":
+                    if (item.Quality - (2*NORMAL_ITEM_QUALITY_LOSS )>= 0)
+                    {
+                        item.Quality = item.Quality - (2*NORMAL_ITEM_QUALITY_LOSS);
+                    }
+                    break;
                 default:
-                    if (item.Quality > 0)
+                    if (item.Quality - NORMAL_ITEM_QUALITY_LOSS >= 0)
                     {
                         item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
                     }
