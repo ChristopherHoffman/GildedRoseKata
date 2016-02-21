@@ -34,79 +34,105 @@ namespace GildedRose.Console
 
         }
 
+        //public bool ItemIsSpecial(Item item)
+        //{
+        //    if (item.Name.Contains("Backstage") || item.Name.Contains("Aged") || item.Name.Contains("Backstage"))
+        //}
+
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
             {
-
-
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (Items[i].Quality > 0)
-                    {
-                        if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            Items[i].Quality = Items[i].Quality - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Items[i].Quality < 50)
-                    {
-                        Items[i].Quality = Items[i].Quality + 1;
-
-                        if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].SellIn < 11)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-
-                            if (Items[i].SellIn < 6)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
+                DecreaseQuality(Items[i]);
 
                 // Decrease SellIn Date
                 DecreaseSellInDate(Items[i]);
 
                 if (Items[i].SellIn < 0)
                 {
-                    if (Items[i].Name != "Aged Brie")
+                    HandleNegativeSellIn(Items[i]);
+                }
+            }
+        }
+
+        private void HandleNegativeSellIn(Item item)
+        {
+
+                if (item.Name != "Aged Brie")
+                {
+                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                        if (item.Quality > 0)
                         {
-                            if (Items[i].Quality > 0)
+                            if (item.Name != "Sulfuras, Hand of Ragnaros")
                             {
-                                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                                {
-                                    Items[i].Quality = Items[i].Quality - 1;
-                                }
+                                item.Quality = item.Quality - 1;
                             }
-                        }
-                        else
-                        {
-                            // This sets the Backstage Pass to 0 quality after the sellIn date.
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
                         }
                     }
                     else
                     {
-                        if (Items[i].Quality < 50)
-                        {
-                            Items[i].Quality = Items[i].Quality + 1;
-                        }
+                        // This sets the Backstage Pass to 0 quality after the sellIn date.
+                        item.Quality = item.Quality - item.Quality;
                     }
+                }
+                else
+                {
+                    if (item.Quality < 50)
+                    {
+                        item.Quality = item.Quality + 1;
+                    }
+                }
+        }
+
+        private void DecreaseQuality(Item item)
+        {
+            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            {
+                return;
+            }
+
+            if (item.Quality < 50)
+            {
+                if (item.Name == "Aged Brie")
+                {
+                    item.Quality = item.Quality + 1;
+                }
+                else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                {
+                    IncreaseBackstagePassQuality(item);
+                }
+                else //Normal Items
+                {
+
+                    if (item.Quality > 0)
+                    {
+                        item.Quality = item.Quality - 1;
+                    }
+                }
+
+
+            }
+        }
+
+        private static void IncreaseBackstagePassQuality(Item item)
+        {
+
+            item.Quality = item.Quality + 1;
+
+            if (item.SellIn < 11)
+            {
+                if (item.Quality < 50)
+                {
+                    item.Quality = item.Quality + 1;
+                }
+            }
+
+            if (item.SellIn < 6)
+            {
+                if (item.Quality < 50)
+                {
+                    item.Quality = item.Quality + 1;
                 }
             }
         }
