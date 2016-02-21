@@ -41,48 +41,43 @@ namespace GildedRose.Console
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
+            foreach (Item item in Items)
             {
-                DecreaseQuality(Items[i]);
+                DecreaseQuality(item);
 
                 // Decrease SellIn Date
-                DecreaseSellInDate(Items[i]);
+                DecreaseSellInDate(item);
 
-                if (Items[i].SellIn < 0)
+                if (item.SellIn < 0)
                 {
-                    HandleNegativeSellIn(Items[i]);
+                    HandleNegativeSellIn(item);
                 }
             }
         }
 
         private void HandleNegativeSellIn(Item item)
         {
-
-                if (item.Name != "Aged Brie")
-                {
-                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (item.Quality > 0)
-                        {
-                            if (item.Name != "Sulfuras, Hand of Ragnaros")
-                            {
-                                item.Quality = item.Quality - 1;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // This sets the Backstage Pass to 0 quality after the sellIn date.
-                        item.Quality = item.Quality - item.Quality;
-                    }
-                }
-                else
-                {
+            switch (item.Name)
+            {
+                case "Aged Brie":
                     if (item.Quality < 50)
                     {
                         item.Quality = item.Quality + 1;
                     }
-                }
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    // This sets the Backstage Pass to 0 quality after the sellIn date.
+                    item.Quality = item.Quality - item.Quality;
+                    break;
+                case "Sulfuras, Hand of Ragnaros":
+                    break;
+                default:
+                    if (item.Quality > 0)
+                    {
+                        item.Quality = item.Quality - 1;
+                    }
+                    break;
+            } 
         }
 
         private void DecreaseQuality(Item item)
