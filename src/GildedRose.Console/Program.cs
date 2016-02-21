@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System;
 namespace GildedRose.Console
 {
     public class Program
@@ -34,10 +34,7 @@ namespace GildedRose.Console
 
         }
 
-        //public bool ItemIsSpecial(Item item)
-        //{
-        //    if (item.Name.Contains("Backstage") || item.Name.Contains("Aged") || item.Name.Contains("Backstage"))
-        //}
+        public const int NORMAL_ITEM_QUALITY_LOSS = 1;
 
         public void UpdateQuality()
         {
@@ -45,7 +42,6 @@ namespace GildedRose.Console
             {
                 DecreaseQuality(item);
 
-                // Decrease SellIn Date
                 DecreaseSellInDate(item);
 
                 if (item.SellIn < 0)
@@ -74,7 +70,7 @@ namespace GildedRose.Console
                 default:
                     if (item.Quality > 0)
                     {
-                        item.Quality = item.Quality - 1;
+                        item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
                     }
                     break;
             } 
@@ -99,14 +95,8 @@ namespace GildedRose.Console
                 }
                 else //Normal Items
                 {
-
-                    if (item.Quality > 0)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-                }
-
-
+                    item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
+                }                
             }
         }
 
