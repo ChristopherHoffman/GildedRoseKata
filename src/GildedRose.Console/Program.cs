@@ -51,30 +51,7 @@ namespace GildedRose.Console
             }
         }
 
-        private void HandleNegativeSellIn(Item item)
-        {
-            switch (item.Name)
-            {
-                case "Aged Brie":
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
-                    break;
-                case "Backstage passes to a TAFKAL80ETC concert":
-                    // This sets the Backstage Pass to 0 quality after the sellIn date.
-                    item.Quality = item.Quality - item.Quality;
-                    break;
-                case "Sulfuras, Hand of Ragnaros":
-                    break;
-                default:
-                    if (item.Quality > 0)
-                    {
-                        item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
-                    }
-                    break;
-            } 
-        }
+        
 
         private void DecreaseQuality(Item item)
         {
@@ -93,10 +70,16 @@ namespace GildedRose.Console
                 {
                     IncreaseBackstagePassQuality(item);
                 }
+                else if (item.Name.Contains("Conjured"))
+                {
+                    item.Quality = item.Quality - (2* NORMAL_ITEM_QUALITY_LOSS);
+                }
                 else //Normal Items
                 {
-                    item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
-                }                
+                        item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
+                }
+
+                if (item.Quality < 0) item.Quality = 0;
             }
         }
 
@@ -127,6 +110,31 @@ namespace GildedRose.Console
             if (item.Name != "Sulfuras, Hand of Ragnaros")
             {
                 item.SellIn -= 1;
+            }
+        }
+
+        private void HandleNegativeSellIn(Item item)
+        {
+            switch (item.Name)
+            {
+                case "Aged Brie":
+                    if (item.Quality < 50)
+                    {
+                        item.Quality = item.Quality + 1;
+                    }
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    // This sets the Backstage Pass to 0 quality after the sellIn date.
+                    item.Quality = item.Quality - item.Quality;
+                    break;
+                case "Sulfuras, Hand of Ragnaros":
+                    break;
+                default:
+                    if (item.Quality > 0)
+                    {
+                        item.Quality = item.Quality - NORMAL_ITEM_QUALITY_LOSS;
+                    }
+                    break;
             }
         }
     }

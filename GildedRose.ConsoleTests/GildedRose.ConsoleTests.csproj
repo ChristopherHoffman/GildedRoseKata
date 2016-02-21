@@ -57,6 +57,7 @@
     <Compile Include="AgedBrieTests.cs" />
     <Compile Include="BackStagePassesTests.cs" />
     <Compile Include="SulfurasTests.cs" />
+    <Compile Include="ConjuredTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\GildedRose.Console\GildedRose.Console.csproj">
