@@ -1,4 +1,4 @@
-using Xunit;
+using Microsoft.VisualStudio.TestTools.;
 
 namespace GildedRose.Tests
 {
@@ -8,6 +8,12 @@ namespace GildedRose.Tests
         public void TestTheTruth()
         {
             Assert.True(true);
+        }
+
+        [Fact]
+        public void UpdateQuality_()
+        {
+
         }
     }
 }
