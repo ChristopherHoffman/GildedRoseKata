@@ -102,4 +102,25 @@ namespace GildedRose.Console
             }
         }
     }
+
+    public class ConjuredItem : Item, IItem
+    {
+        public void Update()
+        {
+            if (this.Quality > 0)
+            {
+                this.Quality -= 2;
+            }
+
+            this.SellIn -= 1;
+
+            if (this.SellIn < 0)
+            {
+                if (this.Quality > 0)
+                {
+                    this.Quality -= 2;
+                }
+            }
+        }
+    }
 }

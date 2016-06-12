@@ -22,6 +22,10 @@ namespace GildedRose.Console
             {
                 return new BackstagePassItem { Name = basicItem.Name, Quality = basicItem.Quality, SellIn = basicItem.SellIn };
             }
+            else if (basicItem.Name.Contains("Conjured"))
+            {
+                return new ConjuredItem { Name = basicItem.Name, Quality = basicItem.Quality, SellIn = basicItem.SellIn };
+            }
             else
             {
                 return new NormalItem { Name = basicItem.Name, Quality = basicItem.Quality, SellIn = basicItem.SellIn };
