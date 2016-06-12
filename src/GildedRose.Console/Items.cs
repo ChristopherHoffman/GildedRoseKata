@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GildedRose.Console
 {
+    //Sorry Goblin, but I moved your item into a new file.
     public class Item
     {
         public string Name { get; set; }
