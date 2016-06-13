@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GildedRose.Console
+﻿namespace GildedRose.Console
 {
     class StandardUpdateStrategy : UpdateStrategyInterface
     {
@@ -13,7 +7,7 @@ namespace GildedRose.Console
 
             if (item.Quality > 0)
             {
-                item.Quality = item.Quality - 1;
+                item.Quality -= 1;
             }
 
             // Decrease SellIn Date
@@ -23,9 +17,11 @@ namespace GildedRose.Console
             {
                 if (item.Quality > 0)
                 {
-                    item.Quality = item.Quality - 1;
+                    item.Quality -= 1;
                 }
             }
+
+            
         }
     }
 
@@ -36,7 +32,7 @@ namespace GildedRose.Console
 
             if (item.Quality < 50)
             {
-                item.Quality = item.Quality + 1;
+                item.Quality += 1;
             }
 
             item.SellIn -= 1;
@@ -45,7 +41,7 @@ namespace GildedRose.Console
             {
                 if (item.Quality < 50)
                 {
-                    item.Quality = item.Quality + 1;
+                    item.Quality += 1;
                 }
             }
         }
@@ -59,7 +55,7 @@ namespace GildedRose.Console
             {
                 if (item.Quality < 50)
                 {
-                    item.Quality = item.Quality + 1;
+                    item.Quality += 1;
                 }
             }
 
@@ -67,7 +63,7 @@ namespace GildedRose.Console
             {
                 if (item.Quality < 50)
                 {
-                    item.Quality = item.Quality + 1;
+                    item.Quality += 1;
                 }
             }
 
@@ -75,7 +71,7 @@ namespace GildedRose.Console
             {
                 if (item.Quality < 50)
                 {
-                    item.Quality = item.Quality + 1;
+                    item.Quality += 1;
                 }
             }
 
@@ -103,7 +99,7 @@ namespace GildedRose.Console
 
             if (item.Quality > 0)
             {
-                item.Quality = item.Quality - 2;
+                item.Quality -= 2;
             }
 
             // Decrease SellIn Date
@@ -113,7 +109,7 @@ namespace GildedRose.Console
             {
                 if (item.Quality > 0)
                 {
-                    item.Quality = item.Quality - 2;
+                    item.Quality -= 2;
                 }
             }
         }

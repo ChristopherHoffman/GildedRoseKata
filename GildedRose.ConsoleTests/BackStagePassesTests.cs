@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GildedRose.Console;
 
@@ -10,8 +9,6 @@ namespace GildedRose.ConsoleTests
     public class BackStagePassesTests
     {
         public Program program;
-        int originalQuality = 80;
-        int originalSellIn = 0;
 
         [TestInitialize]
         public void SetUp()
