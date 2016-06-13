@@ -38,16 +38,80 @@ namespace GildedRose.Console
         {
             for (var i = 0; i < Items.Count; i++)
             {
+                UpdateStrategyInterface strat = UpdateStrategyFactory.Create(Items[i]);
 
-
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                if (strat != null)
                 {
-                    if (Items[i].Quality > 0)
+                    strat.Update(Items[i]);
+                }
+                else
+                {
+                    OldMethod(i);
+                }
+            }
+        }
+
+        private void OldMethod(int i)
+        {
+
+            if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+            {
+                if (Items[i].Quality > 0)
+                {
+                    if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                     {
-                        if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                        Items[i].Quality = Items[i].Quality - 1;
+                    }
+                }
+            }
+            else
+            {
+                if (Items[i].Quality < 50)
+                {
+                    Items[i].Quality = Items[i].Quality + 1;
+
+                    if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                    {
+                        if (Items[i].SellIn < 11)
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            if (Items[i].Quality < 50)
+                            {
+                                Items[i].Quality = Items[i].Quality + 1;
+                            }
                         }
+
+                        if (Items[i].SellIn < 6)
+                        {
+                            if (Items[i].Quality < 50)
+                            {
+                                Items[i].Quality = Items[i].Quality + 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Decrease SellIn Date
+            DecreaseSellInDate(Items[i]);
+
+            if (Items[i].SellIn < 0)
+            {
+                if (Items[i].Name != "Aged Brie")
+                {
+                    if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                    {
+                        if (Items[i].Quality > 0)
+                        {
+                            if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                            {
+                                Items[i].Quality = Items[i].Quality - 1;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // This sets the Backstage Pass to 0 quality after the sellIn date.
+                        Items[i].Quality = Items[i].Quality - Items[i].Quality;
                     }
                 }
                 else
@@ -55,57 +119,6 @@ namespace GildedRose.Console
                     if (Items[i].Quality < 50)
                     {
                         Items[i].Quality = Items[i].Quality + 1;
-
-                        if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].SellIn < 11)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-
-                            if (Items[i].SellIn < 6)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Decrease SellIn Date
-                DecreaseSellInDate(Items[i]);
-
-                if (Items[i].SellIn < 0)
-                {
-                    if (Items[i].Name != "Aged Brie")
-                    {
-                        if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].Quality > 0)
-                            {
-                                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                                {
-                                    Items[i].Quality = Items[i].Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            // This sets the Backstage Pass to 0 quality after the sellIn date.
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
-                        }
-                    }
-                    else
-                    {
-                        if (Items[i].Quality < 50)
-                        {
-                            Items[i].Quality = Items[i].Quality + 1;
-                        }
                     }
                 }
             }
