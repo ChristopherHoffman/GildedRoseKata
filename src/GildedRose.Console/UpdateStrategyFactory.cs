@@ -22,6 +22,10 @@ namespace GildedRose.Console
             {
                 return new BackstagePassesUpdateStrategy();
             }
+            else if (item.Name.Contains("Conjured"))
+            {
+                return new ConjuredUpdateStrategy();
+            }
             else
             {
                 return new StandardUpdateStrategy();

@@ -95,4 +95,27 @@ namespace GildedRose.Console
             //Do nothing, because I'm special!
         }
     }
+
+    class ConjuredUpdateStrategy : UpdateStrategyInterface
+    {
+        public void Update(Item item)
+        {
+
+            if (item.Quality > 0)
+            {
+                item.Quality = item.Quality - 2;
+            }
+
+            // Decrease SellIn Date
+            item.SellIn -= 1;
+
+            if (item.SellIn < 0)
+            {
+                if (item.Quality > 0)
+                {
+                    item.Quality = item.Quality - 2;
+                }
+            }
+        }
+    }
 }
